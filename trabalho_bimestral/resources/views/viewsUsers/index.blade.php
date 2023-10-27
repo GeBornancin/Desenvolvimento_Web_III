@@ -1,0 +1,46 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Usuários') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#ID</th>
+                        <th scope="col">Papel</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach ($users as $user)
+                        <tr>
+                            <th scope="row">{{$user->id}}</th>
+                            <td>{{$user->name}}</td>
+                            <td>
+                                <div style="display:flex">
+                                    @auth
+                                        @can('view', $user)
+                                            <div style="margin-right:2%">
+                                                <button type="button" class="btn btn-outline-info">
+                                                    <a href="{{ route('users.show', $user->id) }}">Papeis do Usuários</a>
+                                                </button>
+                                            </div>
+                                        @endcan
+                                    @endauth
+                                </div>
+                            </td>
+                            
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</x-app-layout>
